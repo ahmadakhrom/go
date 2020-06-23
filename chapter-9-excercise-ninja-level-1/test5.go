@@ -5,6 +5,7 @@ import "fmt"
 type digit int
 
 var x digit
+var y int
 
 func main() {
 
@@ -12,4 +13,8 @@ func main() {
 	fmt.Printf("%T \n", x)
 	x = 42
 	fmt.Println(x)
+
+	y = int(x)
+	fmt.Println(y)
+	fmt.Printf("%T \n", x)
 }
