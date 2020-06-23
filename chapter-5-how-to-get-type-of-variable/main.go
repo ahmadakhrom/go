@@ -16,4 +16,13 @@ func main() {
 	s = 120
 	fmt.Println(s)
 
+	//declaring string with back ticks (``) this can you manage how many to enter space can you used
+	p := `andy goes to campus everyday without absence 
+	-
+	-
+
+	"include sunday", that's crazy`
+	fmt.Println(p)
+	fmt.Printf("TYPE of p is : %T", p)
+
 }
