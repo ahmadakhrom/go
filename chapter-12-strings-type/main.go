@@ -21,6 +21,9 @@ func main() {
 	}
 	for i, z := range a {
 		fmt.Printf("index of a is : %d, and HEX is : %#x \n", i, z)
-
 	}
+
+	b = "bog boss"
+
+	fmt.Println(b)
 }
