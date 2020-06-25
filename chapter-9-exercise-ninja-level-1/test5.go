@@ -4,7 +4,7 @@ import "fmt"
 
 type digit int
 
-var x digit
+var x int
 var y int
 
 func main() {
