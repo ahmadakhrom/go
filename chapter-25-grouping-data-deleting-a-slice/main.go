@@ -23,4 +23,6 @@ func main() {
 	//[:2] ==>>  mengambil value hanya 2 element saja *dari sisi paling kiri
 	fmt.Println(append(x[3:], y[:3]...))
 
+	d := map[i]type
+
 }
