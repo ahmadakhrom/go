@@ -20,7 +20,7 @@ func main() {
 		},
 	}
 
-	fmt.Println(a.first_name, a.last_name)
+	fmt.Println(a.first_name, a.last_name, a.ice_cream_flavors)
 	for i, v := range a.ice_cream_flavors {
 		fmt.Println("he likes a", i, v)
 	}
