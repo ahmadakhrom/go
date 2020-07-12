@@ -25,12 +25,10 @@ func main() {
 	}
 	fmt.Println(respPerson)
 
-	for i, v := range respPerson {
-		fmt.Println(i, v.First, v.Last, v.Age)
+	for _, v := range respPerson {
+		fmt.Println(v.First, v.Last, v.Age)
 		for _, say := range v.Sayings {
 			fmt.Println("-------", say)
 		}
 	}
-
-	d := new()
 }

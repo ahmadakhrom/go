@@ -7,10 +7,10 @@ import (
 )
 
 type Person struct {
-	First   string
-	Last    string
-	Age     int
-	Sayings []string
+	First   string   `json:"First"`
+	Last    string   `json:"Last"`
+	Age     int      `json:"Age"`
+	Sayings []string `json:"Sayings"`
 }
 
 func main() {
@@ -48,9 +48,9 @@ func main() {
 	// fmt.Println(dataPerson[1])
 	// fmt.Println(dataPerson[2])
 
-	//	encoded := json.NewEncoder(os.Stdout).Encode(dataPerson)
-	encoded := json.NewEncoder(os.Stdout)
-	encoded.Encode(dataPerson)
+	encoded := json.NewEncoder(os.Stdout).Encode(dataPerson)
+	// encoded := json.NewEncoder(os.Stdout)
+	// encoded.Encode(dataPerson)
 
 	fmt.Fprintln(os.Stdout, encoded)
 
