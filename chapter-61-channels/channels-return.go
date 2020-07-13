@@ -18,4 +18,8 @@ func main() {
 	fmt.Println(resp1, err)
 	fmt.Println(resp2, err)
 	fmt.Println(resp3, err)
+
 }
+
+//drop by drop, the bucket gets filled
+//persistently, patiently, you are bound to succeed

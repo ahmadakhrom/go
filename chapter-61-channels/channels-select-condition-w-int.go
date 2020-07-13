@@ -30,7 +30,8 @@ func Dice(e, o, q chan<- int, num int) {
 			o <- i
 		}
 	}
-	close(q)
+	close(e)
+	close(o)
 }
 
 //receive channels
