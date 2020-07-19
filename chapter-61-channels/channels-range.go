@@ -7,24 +7,24 @@ import (
 func main() {
 	ch := make(chan int)
 
-	go foo(ch, 106)
+	go foo(ch, 15)
 	bar(ch)
 
 	//===========================================================
-	ch = make(chan int)
-	go func() {
-		for j := 1; j <= 100; j++ {
-			ch <- j
-		}
-		close(ch)
-	}()
+	// ch = make(chan int)
+	// go func() {
+	// 	for j := 1; j <= 10; j++ {
+	// 		ch <- j
+	// 	}
+	// 	close(ch)
+	// }()
 
-	for val := range ch {
-		fmt.Println(val)
+	// for val := range ch {
+	// 	fmt.Println(val)
 
-	}
-	//===========================================================
-	fmt.Println("\nwell done!")
+	// }
+	// //===========================================================
+	// fmt.Println("\nwell done!")
 }
 
 func foo(ch chan int, num int) {

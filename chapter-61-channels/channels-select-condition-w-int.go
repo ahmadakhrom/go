@@ -15,7 +15,7 @@ func main() {
 	go Dice(en, od, qu, num)
 
 	//receive channels
-	DiceResult(en, od, qu)
+	DiceResult(en, od, qu)	
 
 	fmt.Println("done!")
 
