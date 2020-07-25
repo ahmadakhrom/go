@@ -1,4 +1,4 @@
-package goslash
+package gokill
 
 func Sum(i ...int) (int, error) {
 	summary := 0
