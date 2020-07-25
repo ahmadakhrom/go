@@ -3,13 +3,13 @@ package main
 import (
 	"fmt"
 
-	"github.com/ahmadakhrom/go/goslash"
+	"github.com/ahmadakhrom/goflash"
 )
 
 func main() {
-	f, _ := goslash.Sum(5, 5, 5, 5, 5)
+	f, _ := goflash.Sum(1,2)
 	fmt.Println(f)
 
-	d, _ := goslash.Times(5,5,4)
+	d, _ := goflash.Times(1,3)
 	fmt.Println(d)
 }
