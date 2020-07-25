@@ -1,5 +1,6 @@
 package goslash
 
+//sum adds an unlimited number of valuesof type int
 func Times(i ...int) (int, error) {
 	s := 1
 	for _, val := range i {
