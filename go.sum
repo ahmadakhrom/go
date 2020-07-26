@@ -1,5 +1,6 @@
 github.com/GoesToEleven/go-programming v0.0.0-20181228215051-5519dbb87bc5 h1:WKpGS7hJdUWc4YHjvTY96oic8W7Bd6j4zYqAPeyf9N8=
 github.com/GoesToEleven/go-programming v0.0.0-20181228215051-5519dbb87bc5/go.mod h1:LldzOPaKdMOUfSPvqxm1wFrOU8CE1XhRhWn+tbMPe+w=
+github.com/ahmadakhrom/go v1.0.1 h1:0zeZQTtLACdVsX9qp+UAtxNovVN2Al1j7iSm7X+dW3U=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 h1:DZhuSZLsGlFL4CmhA8BcRA0mnthyA/nZ00AqCUo7vHg=

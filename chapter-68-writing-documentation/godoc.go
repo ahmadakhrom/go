@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	)
+	"github.com/ahmadakhrom/go/goflash"
+)
 
 func main() {
-	//f, _ := goflash.Sum(1, 2)
+	f, _ := goflash.(1, 2)
 	fmt.Println("f")
 	//
 	//d, _ := goflash.Times(1, 3)
