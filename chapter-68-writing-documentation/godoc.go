@@ -2,14 +2,16 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/ahmadakhrom/goflash"
-)
+	)
 
 func main() {
-	f, _ := goflash.Sum(1,2)
-	fmt.Println(f)
+	//f, _ := goflash.Sum(1, 2)
+	fmt.Println("f")
+	//
+	//d, _ := goflash.Times(1, 3)
+	//fmt.Println(d)
 
-	d, _ := goflash.Times(1,3)
-	fmt.Println(d)
+	//turn_years, _ := goflash.Years(10)
+	//fmt.Println(turn_years)
+
 }
