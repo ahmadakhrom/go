@@ -1,17 +1,18 @@
 package main
 
 import (
+	"chapter-68-writing-documentation/godark"
 	"fmt"
 )
 
 func main() {
-	//f, _ := goflash.(1, 2)
-	//fmt.Println("f")
-	//
-	//d, _ := goflash.Times(1, 3)
-	//fmt.Println(d)
+	f, _ := godark.Times(1, 2)
+	fmt.Println(f)
 
-	//turn_years, _ := goflash.Years(10)
-	//fmt.Println(turn_years)
+	d, _ := godark.Sum(1, 3)
+	fmt.Println(d)
+
+	turn_years, _ := godark.Years(12)
+	fmt.Println(turn_years, "dogs")
 
 }
