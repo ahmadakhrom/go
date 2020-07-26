@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	//how to print with os.stdout package
+	//how to print with os.stdout godark
 	fmt.Fprintln(os.Stdout, "hello world..")
 	io.WriteString(os.Stdout, "hello world.. \n")
 	fmt.Printf("%q \n", `"here \ we go.."`)
