@@ -1,8 +1,6 @@
 package myfunction
 
-import (
-	"strings"
-)
+import "strings"
 
 func JointextManualWay(text []string) string {
 	s := text[0]

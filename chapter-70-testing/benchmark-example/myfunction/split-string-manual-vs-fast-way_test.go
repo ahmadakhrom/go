@@ -33,8 +33,6 @@ func TestJointextFastWay(t *testing.T) {
 
 //benchmarking
 
-var z []string
-
 func BenchmarkJointextManualWay(b *testing.B) {
 	z := strings.Split(someText, " ")
 	b.ResetTimer()
