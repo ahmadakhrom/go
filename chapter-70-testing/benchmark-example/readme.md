@@ -1,4 +1,4 @@
-#what I lesson for this chapter
+#what I learned for this chapter
 -Benchmark
 -Example
 -Test
