@@ -1,4 +1,4 @@
-#what I learned for this chapter
+# what I learned for this chapter
 -Benchmark
 -Example
 -Test
@@ -10,7 +10,7 @@ TestJointextManualWay(t *testing.T)
 TestJointextFastWay(t *testing.T)
 ```
 
-#Command
+# Command
 
 ```
 go test
