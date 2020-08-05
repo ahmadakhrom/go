@@ -1,8 +1,9 @@
 package main
 
 import (
-	"chapter-71-exercise-ninja-level-13/test3/formula"
 	"fmt"
+
+	formula "github.com/ahmadakhrom/go/chapter-71-exercise-ninja-level-13/test3/formula2"
 )
 
 func main() {

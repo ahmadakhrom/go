@@ -1,9 +1,11 @@
 package main
 
 import (
-	"chapter-71-exercise-ninja-level-13/test2/quote"
-	"chapter-71-exercise-ninja-level-13/test2/word"
 	"fmt"
+
+	"github.com/ahmadakhrom/go/chapter-71-exercise-ninja-level-13/test2/quote"
+
+	"github.com/ahmadakhrom/go/chapter-71-exercise-ninja-level-13/test2/word"
 )
 
 func main() {
