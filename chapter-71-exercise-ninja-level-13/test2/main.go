@@ -9,9 +9,11 @@ import (
 func main() {
 	fmt.Println(word.Count(quote.AlberEinsteinSaid))           //30            //we can see how much words on quotes of Albert einstein
 	for i, v := range word.UseCount(quote.AlberEinsteinSaid) { //printed array //we can print every word that in the quotes
-		fmt.Println(v, i)
+		fmt.Println("the same word in quotes is :", v, "==>", i)
 	}
 
-	d := word.Count("andi subagja dirjo mangunharjo sujatmiko lamunglaksono")
+	s := "andi subagja dirjo mangunharjo sujatmiko lamunglaksono"
+	d := word.Count(s)
 	fmt.Println(d, "---> word(s)")
+	fmt.Println(len(s))
 }

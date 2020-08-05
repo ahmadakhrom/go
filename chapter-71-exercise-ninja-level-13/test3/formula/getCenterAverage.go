@@ -6,7 +6,7 @@ import (
 
 func GetCenterAverage(numbers []int) float64 {
 	sort.Ints(numbers)
-	as := numbers[1:]
+	as := numbers[1:(len(numbers) - 1)]
 
 	n := 0
 	for _, v := range as {
@@ -14,6 +14,9 @@ func GetCenterAverage(numbers []int) float64 {
 	}
 
 	res := float64(n) / float64(len(as))
+	// fmt.Println("n -------", n)
+	// fmt.Println("len pembagi -------", len(as))
+	// fmt.Println("------------------")
 	return res
 }
 

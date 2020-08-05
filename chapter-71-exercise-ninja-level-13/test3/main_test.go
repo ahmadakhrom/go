@@ -6,14 +6,27 @@ import (
 )
 
 func TestCenterAverage(t *testing.T) {
-	f := formula.GetCenterAverage([]int{5, 5, 5, 5}) //15/3 = 5
-	if f != 5 {
-		t.Errorf("unexpected %f", f)
+	type test struct {
+		data   []int
+		answer float64
+	}
+
+	tests := []test{
+		{[]int{1, 2, 3, 4, 5}, 3},
+		{[]int{2, 3, 4, 5, 6}, 4},
+		{[]int{2, 5, 6, 7, 7}, 6},
+	}
+
+	for _, v := range tests {
+		s := formula.GetCenterAverage(v.data)
+		if s != v.answer {
+			t.Errorf("error! expected %v, got : %v", s, v.answer)
+		}
 	}
 }
 
 func BenchmarkCenterAverage(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		formula.GetCenterAverage([]int{5, 5, 5, 5}) //15/3 = 5
+		formula.GetCenterAverage([]int{5, 3, 4, 5, 3, 2, 1, 6, 8, 25000}) //15/3 = 5
 	}
 }
