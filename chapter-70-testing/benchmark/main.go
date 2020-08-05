@@ -1,10 +1,12 @@
-package main
+package benchamark
 
 import (
-	"chapter-70-testing/benchmark/greeting"
 	"fmt"
+	"testing"
 )
 
-func main() {
-	fmt.Println(greeting.Birthday("John William"))
+func BenchmarkHelloWorld(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		fmt.Sprintf("Hello world")
+	}
 }
