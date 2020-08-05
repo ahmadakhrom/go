@@ -1,8 +1,9 @@
 package main
 
 import (
-	"chapter-71-exercise-ninja-level-13/test3/formula"
 	"testing"
+
+	"github.com/ahmadakhrom/go/chapter-71-exercise-ninja-level-13/test3/formula"
 )
 
 func TestCenterAverage(t *testing.T) {
@@ -28,5 +29,13 @@ func TestCenterAverage(t *testing.T) {
 func BenchmarkCenterAverage(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		formula.GetCenterAverage([]int{5, 3, 4, 5, 3, 2, 1, 6, 8, 25000}) //15/3 = 5
+	}
+}
+
+func ExampleCenterAverage(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		formula.GetCenterAverage([]int{1, 2, 3, 4, 5})
+		//Output :
+		//3
 	}
 }
