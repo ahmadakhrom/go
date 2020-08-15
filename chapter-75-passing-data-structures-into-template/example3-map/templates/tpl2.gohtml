@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>
+    name :      {{.name}}<br>
+    gae :       {{.age}} <br>
+    hobbies :   {{range .hobbies}}  {{/*{{range $index, $elem := .hobbies}}*/}}
+                <li>{{.}}</li>
+                {{end}}
+</h1>
+</body>
+</html>

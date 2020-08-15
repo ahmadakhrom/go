@@ -24,16 +24,16 @@ type human interface {
 	introduce()
 }
 
-func sayWhat(h human)  {
+func sayWhat(h human) {
 	h.introduce()
+
 }
 
 func main()  {
-	Angga := Person{
+	boy := Person{
 		"Ahmad",
 		"Maulana",
 	}
-	fmt.Println(Angga)
 
 	girl := Say{
 		Person{
@@ -42,10 +42,8 @@ func main()  {
 		},
 		"Glad to meet you here",
 	}
-	//fmt.Println(girl)
-	//girl.introduce()
 
-	sayWhat(Angga)
 	sayWhat(girl)
+		sayWhat(boy)
 
 }
