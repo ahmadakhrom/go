@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn Go</title>
+</head>
+<body>
+Brand | Feedback | Manufacturer
+{{range .Device}}
+{{lc .Brand}} | {{lc .Feedback}} | {{lc .Manufacturer}} 
+{{end}}
+
+***************************
+
+name | profession
+{{range .Details}}
+{{us .Name}} | {{us .Profession}}
+{{end}}
+
+</body>
+</html>

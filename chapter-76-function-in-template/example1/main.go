@@ -4,7 +4,10 @@ import (
 	"html/template"
 	"log"
 	"os"
+	"strings"
 )
+
+var tpl *template.Template
 
 type smartphone struct {
 	Brand        string
@@ -17,20 +20,24 @@ type owner struct {
 	Profession string
 }
 
-type items struct {
-	Device []smartphone
-	Work   []owner
+var fm = template.FuncMap{
+	"lc": strings.ToLower,
+	"us": upperString,
 }
 
-var tpl *template.Template
-
 func init() {
-	tpl = template.Must(template.ParseFiles("templates/tpl.gohtml"))
+	//define existing template with "template.new" to using funcmap.
+	tpl = template.Must(template.New("").Funcs(fm).ParseFiles("templates/tpl.gohtml"))
+}
+
+func upperString(s string) string {
+	s = strings.ToUpper(s)
+	return s
 }
 
 func main() {
 
-	iphone := smartphone{"iphone", "too expensive", "us"}
+	iphone := smartphone{"IPHONE", "TOO EXPENSIVE", "US"}
 	samsung := smartphone{"samsung", "friendly", "south korea"}
 	huawei := smartphone{"huawei", "expected", "taiwan"}
 
@@ -41,10 +48,16 @@ func main() {
 	smartphones := []smartphone{iphone, samsung, huawei}
 	owners := []owner{people1, people2, people3}
 
-	data := items{smartphones, owners}
+	data := struct {
+		Device  []smartphone
+		Details []owner
+	}{
+		smartphones,
+		owners,
+	}
 
-	err := tpl.Execute(os.Stdout, data)
+	err := tpl.ExecuteTemplate(os.Stdout, "tpl.gohtml", data)
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalf("%s", err)
 	}
 }
