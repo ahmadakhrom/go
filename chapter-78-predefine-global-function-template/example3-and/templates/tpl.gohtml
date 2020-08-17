@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn Go</title>
+</head>
+<body>
+{{.}}
+
+    {{if .}}
+    {{.}}
+    {{end}}
+
+        {{range .}} {{if .Founder}} 
+        {{.Founder}} {{end}} {{end}}
+                
+                {{range .}} {{if .Organization}} 
+                {{.Organization}} {{end}} {{end}}
+
+                    {{range .}} {{if and .Organization .Status}} 
+                    {{.Organization}} {{end}} {{end}}
+
+</body>
+</html>

@@ -26,7 +26,7 @@ var fm = template.FuncMap{
 }
 
 func init() {
-	//define existing template with "template.new" to using funcmap.
+	//define existing templates with "templates.new" to using funcmap.
 	tpl = template.Must(template.New("").Funcs(fm).ParseFiles("templates/tpl.gohtml"))
 }
 

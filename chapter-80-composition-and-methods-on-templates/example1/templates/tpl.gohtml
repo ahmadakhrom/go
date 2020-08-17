@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    Podium | Rider | Number | Manufacturer
+    {{.FirstYears.Podium}} | {{range .FirstYears.Motogp}} {{.Name}} | {{.Number}} | {{.Manufacturer}} {{end}}
+    {{.SecondYears.Podium}} | {{range .SecondYears.Motogp}} {{.Name}} | {{.Number}} | {{.Manufacturer}} {{end}}
+    {{.ThirdYears.Podium}} | {{range .ThirdYears.Motogp}} {{.Name}} | {{.Number}} | {{.Manufacturer}} {{end}}
+</body>
+</html>

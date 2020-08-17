@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{range .}}
+Tahun : {{.AcaYear}}
+Musim : {{.Fall.Term}}
+Course Details: {{range .Fall.Course}}
+        Number  :   {{.Number}}
+        Name    :   {{.Name}}
+        Unit    :   {{.Units}} {{end}}
+
+Tahun : {{.AcaYear}}
+Musim : {{.Spring.Term}}
+Course Details: {{range .Spring.Course}}
+        Number  :   {{.Number}}
+        Name    :   {{.Name}}
+        Unit    :   {{.Units}} {{end}}
+
+Tahun : {{.AcaYear}}
+Musim : {{.Summer.Term}}
+Course Details: {{range .Summer.Course}}
+        Number  :   {{.Number}}
+        Name    :   {{.Name}}
+        Unit    :   {{.Units}} {{end}}
+
+{{end}}
+
+
+</body>
+</html>

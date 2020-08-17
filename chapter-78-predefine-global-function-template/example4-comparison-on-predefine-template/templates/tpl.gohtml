@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn Go</title>
+</head>
+<body>
+{{if .Citizen}} 
+    {{.Citizen}} 
+        {{end}}
+
+{{if .Lyon}} 
+    {{.Lyon}} 
+        {{end}}
+
+{{if gt .Lyon .Citizen}} 
+    Lyon won  
+        {{end}}
+
+{{if lt .Citizen .Lyon}} 
+    Citizen Lose   
+        {{end}}
+
+{{if gt .Citizen .Lyon}} 
+    what??   
+        {{end}}
+
+{{if lt 5 .Lyon}} 
+    what??   
+        {{end}}
+
+{{if gt 5 .Lyon}} 
+    yess   
+        {{end}}        
+
+</body>
+</html>

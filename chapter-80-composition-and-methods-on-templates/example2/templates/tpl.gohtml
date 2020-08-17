@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+my data         : {{.}}
+Artist          : {{.Artist}}
+BeautyRate      : {{.BeautyRate | .CalcRate}} of 100
+==========indikator==========
+Bad rate        : {{.Bad}} of 100
+Standard rate   : {{.Standard}} of 100
+Amazing rate    : {{10|.Amazing}} of 100
+Loop            : {{10|.Loop}}
+</body>
+</html>

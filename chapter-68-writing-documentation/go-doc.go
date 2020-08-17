@@ -18,10 +18,10 @@
 // Show godark docs for the doc command.
 // go doc -cmd cmd/doc
 // Show godark docs and exported symbols within the doc command.
-// go doc template.new
-// Show documentation for html/template's New function.
-// (html/template is lexically before text/template)
-// go doc text/template.new # One argument
-// Show documentation for text/template's New function.
-// go doc text/template new # Two arguments
-// Show documentation for text/template's New function.
+// go doc templates.new
+// Show documentation for html/templates's New function.
+// (html/templates is lexically before text/templates)
+// go doc text/templates.new # One argument
+// Show documentation for text/templates's New function.
+// go doc text/templates new # Two arguments
+// Show documentation for text/templates's New function.
