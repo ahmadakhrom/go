@@ -27,14 +27,14 @@ func init() {
 }
 
 func main() {
-	//single data
+	//single of year
 	//data := year{
-	//	AcaYear: "2000-2010",
+	//	AcaYear: "2019",
 	//	Fall:    semester{
 	//		Term: "Fall",
 	//		Course: []course{
 	//			{
-	//				"CSCI-40", "Introduction to Programming in Go", "4",
+	//				" CSCI-40", "Introduction to Programming in Go", "4",
 	//			},
 	//			{
 	//				"CSCI-130", "Introduction to Web Programming with Go", "4",
@@ -48,7 +48,7 @@ func main() {
 	//Summer:    semester{},
 	//}
 
-	//multiple data
+	//multiple of year range
 	data := []year{
 		year{
 			AcaYear: "2018",

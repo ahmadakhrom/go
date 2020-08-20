@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{range.}}
+   #Region :{{.RegionName}}
+    {{range.CaliforniaHotels}}
+      >>Name    : {{.Name}}
+        Address : {{.Address}}
+        City    : {{.City}}
+        Zip     : {{.Zip}}
+        Facilities : Restaurant
+           {{range .Restaurants}}
+              Name        : {{.Name}}
+              Breakfast   : {{range .Breakfast}} {{.}} {{end}}
+              Launch      : {{range .Launchs}} {{.}} {{end}}
+              Dinner      : {{range .Dinner}} {{.}} {{end}}
+                {{end}}
+    {{end}}
+    ============================    ============================    ============================
+{{end}}
+    </body>
+        </html>
