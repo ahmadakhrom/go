@@ -5,7 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-{{.}}
-
+{{range .}}
+{{.NameOfRestaurant}}
+    {{range .Meals}}
+        {{.NameOfMeals}}
+        {{range .Item}}   {{.Name}}
+           {{.Desc}}
+           {{.Price}}
+        {{end}} {{end}} {{end}}
     </body>
         </html>

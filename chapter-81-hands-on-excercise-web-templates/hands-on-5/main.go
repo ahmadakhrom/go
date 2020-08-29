@@ -7,7 +7,8 @@ import (
 )
 
 type items struct {
-	Name, Desc, Price string
+	Name, Desc string
+	Price int
 }
 
 type Meals struct {
@@ -35,32 +36,47 @@ func main() {
 			NameOfRestaurant: "Chinese Food",
 			Meals: []Meals{
 				Meals{
-					NameOfMeals: "",
+					NameOfMeals: "Breakfast",
 					Item: []items{
 						items{
-							Name: "",
-							Desc: "",
-							Price: "",
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
 						},
 						items{
-							Name: "",
-							Desc: "",
-							Price: "",
+							Name: "dish 2",
+							Desc: "desc..",
+							Price: 15000,
 						},
 					},
 				},
 				Meals{
-					NameOfMeals: "",
+					NameOfMeals: "Launch",
 					Item: []items{
 						items{
-							Name: "",
-							Desc: "",
-							Price: "",
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
 						},
 						items{
-							Name: "",
-							Desc: "",
-							Price: "",
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
+						},
+					},
+				},
+				Meals{
+					NameOfMeals: "Dinner",
+					Item: []items{
+						items{
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
+						},
+						items{
+							Name: "dish 2",
+							Desc: "desc..",
+							Price: 15000,
 						},
 					},
 				},
@@ -70,32 +86,97 @@ func main() {
 			NameOfRestaurant: "European Food",
 			Meals: []Meals{
 				Meals{
-					NameOfMeals: "",
+					NameOfMeals: "Breakfast",
 					Item: []items{
 						items{
-							Name: "",
-							Desc: "",
-							Price: "",
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
 						},
 						items{
-							Name: "",
-							Desc: "",
-							Price: "",
+							Name: "dish 2",
+							Desc: "desc..",
+							Price: 15000,
 						},
 					},
 				},
 				Meals{
-					NameOfMeals: "",
+					NameOfMeals: "Launch",
 					Item: []items{
 						items{
-							Name: "",
-							Desc: "",
-							Price: "",
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
 						},
 						items{
-							Name: "",
-							Desc: "",
-							Price: "",
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
+						},
+					},
+				},
+				Meals{
+					NameOfMeals: "Dinner",
+					Item: []items{
+						items{
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
+						},
+						items{
+							Name: "dish 2",
+							Desc: "desc..",
+							Price: 15000,
+						},
+					},
+				},
+			},
+		},
+			Restaurant{
+			NameOfRestaurant: "Asian Food",
+			Meals: []Meals{
+				Meals{
+					NameOfMeals: "Breakfast",
+					Item: []items{
+						items{
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
+						},
+						items{
+							Name: "dish 2",
+							Desc: "desc..",
+							Price: 15000,
+						},
+					},
+				},
+				Meals{
+					NameOfMeals: "Launch",
+					Item: []items{
+						items{
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
+						},
+						items{
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
+						},
+					},
+				},
+				Meals{
+					NameOfMeals: "Dinner",
+					Item: []items{
+						items{
+							Name: "dish 1",
+							Desc: "desc..",
+							Price: 14000,
+						},
+						items{
+							Name: "dish 2",
+							Desc: "desc..",
+							Price: 15000,
 						},
 					},
 				},
@@ -105,7 +186,7 @@ func main() {
 
 		err := tpl.Execute(os.Stdout, data)
 		if err != nil {
-		log.Fatalf("%err", err)
+		log.Fatalf("%s", err)
 	}
 }
 //restaurants -> []restaurant -> restaurant1 --> Name & []meals  -> item -> []items -> item1, item2, item3, etc,

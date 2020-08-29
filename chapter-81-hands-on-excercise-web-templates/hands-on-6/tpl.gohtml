@@ -1,0 +1,32 @@
+{{/*<!DOCTYPE html>*/}}
+{{/*<html lang="en" xmlns="http://www.w3.org/1999/html">*/}}
+{{/*<head>*/}}
+{{/*    <meta charset="UTF-8">*/}}
+{{/*    <title>Title</title>*/}}
+{{/*</head>*/}}
+{{/*<body>*/}}
+{{/*Date            | Open </br>*/}}
+{{/*{{range .}}*/}}
+{{/*{{.Date}}       | {{.Open}} </br>*/}}
+{{/*{{end}}*/}}
+{{/*    </body>*/}}
+{{/*        </html>*/}}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Stok Data Template</h1>
+
+        {{range .}}
+    <ul>
+        {{.Date}} - {{.Open}}
+    </ul>
+        {{end}}
+</body>
+</html>
+
