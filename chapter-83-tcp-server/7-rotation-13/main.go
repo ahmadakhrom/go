@@ -29,10 +29,10 @@ func handling(conn net.Conn)  {
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan(){
 		line := strings.ToLower(scanner.Text())
-		byteString := []byte(line)
-		r := rotation13(byteString)
+		byteSLice := []byte(line)
+		r := rotation13(byteSLice)
 
-		fmt.Fprintf(conn, "%s - %s \n\n",line,r )
+		fmt.Fprintf(conn, "%s - %s\n\n",line,r )
 	}
 }
 
@@ -42,7 +42,7 @@ func rotation13(byteString []byte) []byte  {
 		//ascii 97 - 122
 		if v <= 109{
 			r13[i] = v + 13
-		}else {
+		} else {
 			r13[i] = v - 13
 		}
 	}
