@@ -12,6 +12,10 @@
             <p>request method : {{.Method}}</p>
         {{end}}
 
+        {{if .Uri}}
+            <p>request uri : {{.Uri}}</p>
+        {{end}}
+
         {{if .Host}}
             <p>request host : {{.Host}}</p>
         {{end}}
@@ -38,11 +42,11 @@
 
         {{if .Header}}
             {{range $key, $values := .Header}}
-                <p>Key  :{{$key}}</p>
+                <p>Key  : {{$key}}</p>
             <ul>
                 {{range  $values}}
                 <li>
-                        {{.}}
+                        and de value is : {{.}}
                 </li>
                 {{end}}
             </ul>
@@ -65,7 +69,7 @@
     </header>
 {{end}}
 
-    <form action="/" method="POST">
+    <form action="/go" method="POST">
         <input type="text" name="full-name" autofocus autocomplete="off">
         <input type="submit" name="submit-btn" value="value-of-submit-btn">
     </form>

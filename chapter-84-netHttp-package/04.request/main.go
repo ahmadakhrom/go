@@ -18,6 +18,7 @@ type urlRequest struct {
 	Header http.Header
 	Host string
 	ContentLength int64
+	Uri string
 }
 
 func (f fruit) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
@@ -33,6 +34,7 @@ func (f fruit) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
 		r.Header,
 		r.Host,
 		r.ContentLength,
+		r.RequestURI,
 	}
 	tpl.ExecuteTemplate(w, "index.gohtml",data)
 }
