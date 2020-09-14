@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{if .}}
+
+    <header>
+        {{if .Method}}
+            <p>request method : {{.Method}}</p>
+        {{end}}
+
+        {{if .Host}}
+            <p>request host : {{.Host}}</p>
+        {{end}}
+
+        {{if .ContentLength}}<p>The request ContentLength: {{.ContentLength}}</p>{{end}}
+
+        {{if .ContentLength}}
+            <p>Content Length : {{.ContentLength}}</p>
+        {{end}}
+
+        {{if .URL}}
+            <p>URL Request :</p>
+            <ul>
+                <li>Scheme     : {{.URL.Scheme}}</li>
+                <li>Opaque     : {{.URL.Opaque}}</li>
+                <li>Host       : {{.URL.Host}}</li>
+                <li>Path       : {{.URL.Path}}</li>
+                <li>Path       : {{.URL.RawPath}}</li>
+                <li>Force Query:{{.URL.ForceQuery}}</li>
+                <li>Path       : {{.URL.RawQuery}}</li>
+                <li>Fragment   :{{.URL.Fragment}}</li>
+            </ul>
+        {{end}}
+
+        {{if .Header}}
+            {{range $key, $values := .Header}}
+                <p>Key  :{{$key}}</p>
+            <ul>
+                {{range  $values}}
+                <li>
+                        {{.}}
+                </li>
+                {{end}}
+            </ul>
+            {{end}}
+        {{end}}
+
+        {{if .Submissions}}
+            <p>Submission</p>
+            {{range $key,$values := .Submissions }}
+                <p>{{$key}}</p>
+            <ul>
+                {{range $values}}
+                <li>
+                    {{.}}
+                </li>
+                {{end}}
+            </ul>
+            {{end}}
+        {{end}}
+    </header>
+{{end}}
+
+    <form action="/" method="POST">
+        <input type="text" name="full-name" autofocus autocomplete="off">
+        <input type="submit" name="submit-btn" value="value-of-submit-btn">
+    </form>
+</body>
+</html>

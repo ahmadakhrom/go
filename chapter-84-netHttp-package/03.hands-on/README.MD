@@ -1,4 +1,4 @@
 # Hands on
 ```
-1. Make a example whice similiar like 02.parse-form
+1. Make an example whice are similar like 02.parse-form
 ```
