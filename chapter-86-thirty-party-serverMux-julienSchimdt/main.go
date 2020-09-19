@@ -60,7 +60,7 @@ func apply(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	HandleError(w, err)
 }
 
-//
+
 func applyProcess(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
 	err := tpl.ExecuteTemplate(w, "apply-process.gohtml", nil)
 	HandleError(w, err)
