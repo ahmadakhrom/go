@@ -10,8 +10,8 @@ type animal int
 type dafault int
 
 func (p person) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
-	io.WriteString(w, "hello husky duggy lucky..")
-}
+		io.WriteString(w, "hello husky duggy lucky..")
+	}
 
 func (p animal) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
 	io.WriteString(w, "hello olla holla lala..")

@@ -20,4 +20,4 @@ Hello world
 fmt.Println(string)
 }
 
-//to build and run program : "go run 02.newServerMux.go > index.html"
+//to build and run program : "go run part-02.newServerMux.go > index.html"

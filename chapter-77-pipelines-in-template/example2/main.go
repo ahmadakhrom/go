@@ -18,7 +18,7 @@ func timeTo24h(t time.Time) string {
 }
 
 func dateToMDY(t time.Time) string  {
-	return t.Format("Monday, 02-Jan-2006")
+	return t.Format("Monday, part-02-Jan-2006")
 }
 
 var fm = template.FuncMap{

@@ -43,7 +43,7 @@ func main() {
 			Motogp: []motogpRider{
 				{
 					"Andrea Dovizioso",
-					"02",
+					"part-02",
 					"Ducati MotoGP Racing",
 				},
 			},

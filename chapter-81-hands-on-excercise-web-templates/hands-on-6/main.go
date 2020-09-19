@@ -98,7 +98,7 @@ func parsefiles(filePath string) []DataTable  {
 			continue
 		}
 
-		date, _ := time.Parse("2006-01-02",row[0])
+		date, _ := time.Parse("2006-01-part-02",row[0])
 		open, _ := strconv.ParseFloat(row[1],64)
 
 		DataTables = append(DataTables, DataTable{
