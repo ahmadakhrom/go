@@ -22,18 +22,21 @@ func main() {
 			log.Fatalf("%s", err)
 			continue
 		}
-		go handle(conn)
+		go serve(conn)
 	}
 }
 
-func handle(conn net.Conn)  {
+func serve(conn net.Conn)  {
+	defer conn.Close()
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan(){
 		line := scanner.Text()
 		fmt.Println(line)
+		if line != "" {
+			fmt.Println("this is end of the http request headers")
+			break
+		}
 	}
-	defer conn.Close()
-
 	// we never get here
 	// we have an open stream connection
 	// how does the above reader know when it's done?
