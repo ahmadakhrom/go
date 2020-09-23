@@ -45,7 +45,8 @@ func serve(conn net.Conn)  {
 	io.WriteString(conn, "HTTP/1.1 200 OK \r\n")
 
 	body := "CHECK OUT THE RESPONSE BODY PAYLOAD" //length of body is 35 characters
-	fmt.Fprintf(conn,"Content-Length: %d \r\n",len(body))
+	//fmt.Fprintf(conn,"Content-Length: %d \r\n",len(body))
 	fmt.Fprintf(conn, "Content-Type: text/plain \r\n")
 	io.WriteString(conn, "\r\n")
+	io.WriteString(conn, body)
 }
