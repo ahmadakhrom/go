@@ -18,13 +18,13 @@ func foo(w http.ResponseWriter, r *http.Request)  {
 }
 
 func bar(w http.ResponseWriter, r *http.Request)  {  //serving requested file
-	fileSource, err := os.Open("sunset.jpg")
+	fileSource, err := os.Open("../source/sunset.jpg")
 
 	if err != nil {
 		http.Error(w,"eror code 404",http.StatusNotFound)
 		return
 	}
-	defer fileSource.Close()
+	defer fileSource.Stat()
 
 	io.Copy(w, fileSource)
 }

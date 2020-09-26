@@ -16,6 +16,6 @@ func foo(w http.ResponseWriter, _ *http.Request)  {
 
 	io.WriteString(w, `
 		<!--image doesn't serve'-->
-		<img src="/sunset.jpg">
+		<img src="../source/sunset.jpg">
 	`)
 }
