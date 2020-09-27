@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -9,7 +10,7 @@ func main() {
 	// diretory on (".") is root
 	http.Handle("/",http.FileServer(http.Dir(".")))
 	http.HandleFunc("/foo/", foo)
-	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func foo(w http.ResponseWriter, r *http.Request) {

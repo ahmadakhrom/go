@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -11,7 +12,7 @@ func main() {
 		http.StripPrefix("/resource",
 			http.FileServer(http.Dir("./assets"))))
 
-	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 
