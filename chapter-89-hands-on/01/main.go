@@ -22,6 +22,7 @@ func main() {
 			http.FileServer(http.Dir("./assets"))))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
+	return
 }
 
 func foo(w http.ResponseWriter, _ *http.Request) {
