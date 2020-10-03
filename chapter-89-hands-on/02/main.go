@@ -21,7 +21,7 @@ func main() {
 }
 
 func foo(w http.ResponseWriter, _ *http.Request) {
-	err := tpl.ExecuteTemplate(w, "", nil)
+	err := tpl.Execute(w, nil)
 	if err != nil {
 		http.Error(w, "error 404", 404)
 		return

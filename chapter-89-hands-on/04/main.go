@@ -9,7 +9,7 @@ import (
 var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.ParseFiles("index.gohtml"))
+	tpl = template.Must(template.ParseFiles("templates/index.gohtml"))
 }
 
 func main() {
@@ -24,9 +24,9 @@ func main() {
 }
 
 func foo(w http.ResponseWriter, _ *http.Request) {
-	err := tpl.ExecuteTemplate(w, "index.gohtml", nil)
+	err := tpl.Execute(w,nil)
 	if err != nil {
-		http.Error(w, "error 404", 404)
+		http.Error(w, "error 500", 500)
 		return
 	}
 }

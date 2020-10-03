@@ -16,13 +16,14 @@ func main() {
 	http.HandleFunc("/",foo)
 
 	fs := http.FileServer(http.Dir("./public"))
-	log.Fatal(http.ListenAndServe(":8080", fs))
+	http.Handle("/pics/",fs)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func foo(w http.ResponseWriter, _ *http.Request) {
-	err := tpl.ExecuteTemplate(w, "", nil)
+	err := tpl.Execute(w, nil)
 	if err != nil {
-		http.Error(w, "Error Not Foundss", 404)
+		http.Error(w, "Error Not Found", 404)
 		return
 	}
 }
