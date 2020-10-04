@@ -1,0 +1,23 @@
+{{template "header"}}
+
+<div style="text-align: center;">
+    <form method="POST">
+        First Name
+        <input type="text" id="firstName" name="firstName">
+        <br>
+        Last Name
+        <input type="text" id="lastName" name="lastName">
+        <br>
+        Status
+        <input type="checkbox" id="status" name="status">
+        <br>
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    First name : {{.FirstName}} <br>
+    Lastname name : {{.LastName}} <br>
+    Status : {{.Status}} <br>
+</div>
+
+{{template "footer"}}
