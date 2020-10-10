@@ -1,0 +1,10 @@
+{{template "header"}}
+
+<form method="post" enctype="multipart/form-data">
+    <input type="file" id="" name="q">
+    <input type="submit" value="save">
+</form>
+{{if .}}
+{{.}}
+{{end}}
+{{template "footer"}}
