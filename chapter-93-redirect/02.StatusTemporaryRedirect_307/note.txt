@@ -1,0 +1,4 @@
+## if you request a GET request server always response a GET request,
+and if you request a POST server always response a POST request
+
+>>this method always response the same request what are you method requested

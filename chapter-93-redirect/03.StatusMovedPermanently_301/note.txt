@@ -1,0 +1,2 @@
+## for request GET
+## if you request a GET request. server always response a GET request permanently.

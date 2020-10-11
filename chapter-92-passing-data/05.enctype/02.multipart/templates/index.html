@@ -1,0 +1,24 @@
+{{template "header"}}
+   <center>
+    <form method="POST" enctype="multipart/form-data">
+        First Name<input type="text" name="First" id="First">
+        <br>
+        Last Name<input type="text" name="Last" id="Last">
+        <br>
+        Status Active<input type="checkbox" name="Active" id="Active">
+        <br>
+        <input type="submit" value="save">
+    </form>
+       <br>
+       <br>
+    {{if .}}
+        body content: {{.}}
+            {{end}}
+{{/*//use when your applying form value method from request*/}}
+{{/*       //body content*/}}
+{{/*       {{.First}} <br>*/}}
+{{/*       {{.Last}} <br>*/}}
+{{/*       {{.Active}}*/}}
+
+   </center>
+{{template "footer"}}

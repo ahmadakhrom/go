@@ -58,7 +58,7 @@ func foo(w http.ResponseWriter, r *http.Request) {
 		checkErr500(w, err)
 	}
 	//if used a template(S) no need for set header below:
-	//w.Header().Set("Content-Type","text/html;charset=utf-8")
+	w.Header().Set("Content-Type","text/html;charset=utf-8")
 
 	tpl.ExecuteTemplate(w, "index.gohtml",data)
 }

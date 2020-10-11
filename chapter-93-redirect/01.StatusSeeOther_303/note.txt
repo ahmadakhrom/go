@@ -1,0 +1,1 @@
+## Anything what are you request GET or POST request, server always response a GET request.
