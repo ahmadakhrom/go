@@ -17,7 +17,7 @@ func main() {
 }
 
 //index page
-func index(w http.ResponseWriter, r *http.Request)  {
+func index(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html;charset=utf-8")
 	io.WriteString(w, `<center> <a href="/foo">write cookies>></center>`)
 }
@@ -31,7 +31,7 @@ func foo(w http.ResponseWriter, r *http.Request) {
 		Path:   "/",
 	})
 	w.Header().Set("Content-Type", "text/html;charset=utf-8")
-	io.WriteString(w, `<center> cookies is set</center>`)
+	io.WriteString(w, "<center> cookies is set</center>")
 	io.WriteString(w, `<center> <a href="/bar">list all cookies>></center>`)
 	io.WriteString(w, `<center> <a href="/">index>></center>`)
 }
@@ -40,7 +40,7 @@ func foo(w http.ResponseWriter, r *http.Request) {
 func bar(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("_local")
 	if err != nil {
-		http.Redirect(w,r,"/foo", 303) //see other
+		http.Redirect(w, r, "/foo", 303) //see other
 	}
 	w.Header().Set("Content-Type", "text/html;charset=utf-8")
 	io.WriteString(w, "<center> value cookies: "+c.Value+"</center>")
@@ -52,12 +52,13 @@ func bar(w http.ResponseWriter, r *http.Request) {
 func doo(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("_local")
 	if err != nil {
-		http.Redirect(w,r,"/foo", 303) //see other
+		http.Redirect(w, r, "/foo", 303) //see other
 	}
 	//delete cookie
 	c.MaxAge = -1
 
 	http.SetCookie(w, c)
-	http.Redirect(w, r, "/",303)
+	http.Redirect(w, r, "/", 303)
 }
+
 //index -> set cookies -> cookie list -> delete cookies -> cookies list
