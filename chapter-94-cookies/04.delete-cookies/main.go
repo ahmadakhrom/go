@@ -40,7 +40,8 @@ func foo(w http.ResponseWriter, r *http.Request) {
 func bar(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("_local")
 	if err != nil {
-		http.Redirect(w, r, "/foo", 303) //see other
+		http.Error(w, http.StatusText(400),http.StatusBadRequest)
+		return
 	}
 	w.Header().Set("Content-Type", "text/html;charset=utf-8")
 	io.WriteString(w, "<center> value cookies: "+c.Value+"</center>")
@@ -58,7 +59,7 @@ func doo(w http.ResponseWriter, r *http.Request) {
 	c.MaxAge = -1
 
 	http.SetCookie(w, c)
-	http.Redirect(w, r, "/", 303)
+	http.Redirect(w, r, "/", 303) //see other
 }
 
 //index -> set cookies -> cookie list -> delete cookies -> cookies list

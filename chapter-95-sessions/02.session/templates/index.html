@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>foo.html</title>
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <form method="POST" action="/">
+            Username
+            <input type="text" name="username" autofocus autocomplete="off ">
+            </br>
+            Firstname
+            <input type="text " name="firstname">
+            </br>
+            Lastname
+            <input type="text " name="lastname">
+            </br>
+            <input type="submit">
+        </form>
+
+        </br>{{if .}} username :{{.Username}}
+        </br>Firstname :{{.Firstname}}
+        </br>Lastname : {{.Lastname}} {{end}}
+        <br><br>
+        <a href="/bar">go to bar</a>
+    </div>
+</body>
+
+</html>
