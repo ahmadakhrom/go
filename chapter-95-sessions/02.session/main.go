@@ -57,7 +57,8 @@ func foo(w http.ResponseWriter, r *http.Request) {
 	if status == true {
 		dataUser = DBuser[username] //zzzzzz
 	}
-	fmt.Println("line 56 --- Data user is :", dataUser)
+	fmt.Println("line 55 --- Data user is :", dataUser)
+	fmt.Println("line 56 --- username is :", username)
 	//process submission
 	if r.Method == http.MethodPost {
 		uForm := r.FormValue("username")
