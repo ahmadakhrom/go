@@ -1,10 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"text/template"
 	"time"
+
+	"chapter-95-sessions/03.login-with-auth-and-sessions/modul"
+
+	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type users struct {
@@ -12,7 +16,8 @@ type users struct {
 	password string
 }
 
-var dataUsrNm = map[string]string{}
+var detailCookie = map[string]string{}
+var detailUser = map[string]users{}
 
 var tpl *template.Template
 
@@ -30,145 +35,116 @@ func main() {
 
 //func for directing to index page
 func index(w http.ResponseWriter, r *http.Request) {
-	//checkpoint cookie name
-	_, err := r.Cookie("_sess_usrnm")
-	if err != nil {
-		tpl.ExecuteTemplate(w, "index.html", nil)
-		return
-	}
+	//checkpoint cookie name and password
+	u := modul.GetCookie(w, r, "_uid")
 
-	_, err2 := r.Cookie("_sess_pwd")
-	if err2 != nil {
-		tpl.ExecuteTemplate(w, "index.html", nil)
-		fmt.Println("or check here")
-		return
-	}
-
-	//check value cookies if true pass, if false turn back page
-	//if enable the database, check value was encrypted and compare.
-	tpl.ExecuteTemplate(w, "dashboard.html", http.StatusOK)
+	//u := (w, r, "_uid")
+	//validation logged, direct to dashboard
+	//if enable the database, check value was encrypted and compare it.
+	tpl.ExecuteTemplate(w, "index.html", u)
 }
 
 func dashboard(w http.ResponseWriter, r *http.Request) {
-	//if request is get check session
-	//if request is post validating username & password
-
-	//example data user like below
-	dataUserDB := users{"andy", "123456"}
-
-	//checkpoint #1
+	//checkpoint GET
 	if r.Method == http.MethodGet {
-		fmt.Println("method get requested")
-
-		c, err := r.Cookie("_sess_usrnm")
+		//check sessoin _uid if nothing make it
+		c, err := r.Cookie("_uid")
 		if err != nil {
-			http.Redirect(w, r, "/", 303) //http.StatusSeeOther
-			return
+			d := uuid.New()
+			c = &http.Cookie{
+				Name:     "_uid",
+				Value:    d.String(),
+				HttpOnly: true,
+				Expires:  time.Now().Add(time.Hour * 24 * 365), //1 year
+			}
+			http.SetCookie(w, c)
 		}
 
-		//if user pwd already on DB
-		//checking userName is already on DB (if use database)
-		//c, _ := r.Cookie("_sess_usrnm")
-		valUsrnm, _ := dataUsrNm[c.Value]
-		if valUsrnm != dataUserDB.username {
-			http.Redirect(w, r, "/", 303) //http.StatusSeeOther
-			return
-		}
-		//check password
-		cookiesValid(w, r, "_sess_pwd")
-		c, err = r.Cookie("_sess_pwd")
+		_, err = r.Cookie("_sessID")
 		if err != nil {
-			http.Redirect(w, r, "/", 303) //http.StatusSeeOther
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
 
-		valPwd, _ := dataUsrNm[c.Value]
-		if valPwd != dataUserDB.password {
-			http.Redirect(w, r, "/", 303) //http.StatusSeeOther
-			return
-		}
-		http.Redirect(w, r, "/dashboard", 200) //http.StatusOK
+		//decrypt value cookie v and check result of decrypted with username on DB
+		//check value cookie username are registered on DB or no
+		tpl.ExecuteTemplate(w, "dashboard.html", nil)
 	}
+	//end of checkpoint GET
 
-	//end of checkpoint #2
+	//checkpoint POST
+	//example data user
+	userDB := users{"andy", "$2a$04$GAgZBIywKpmH0jg7QTBsReALSk5C2au0PZj8p7mPqS3nsLtEogj8y"}
+
 	if r.Method == http.MethodPost {
-		fmt.Println("method post requested")
 		usrnmForm := r.FormValue("username")
 		pwdForm := r.FormValue("password")
 
 		//validating username and password
-		//if accoout valid save data to dataFormUsr
-		dataFormUsr := users{
+		//if account valid save data to dataFormUsr
+		FormUsrnm := users{
 			usrnmForm,
 			pwdForm,
 		}
 
-		if usrnmForm != dataUserDB.username {
-			http.Redirect(w, r, "/", 401) //http.StatusUnauthorized
+		//matching username and password on db
+		if usrnmForm != userDB.username {
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
 
-		if pwdForm != dataUserDB.password {
-			http.Redirect(w, r, "/", 401) //http.StatusUnauthorized
+		errCompr := bcrypt.CompareHashAndPassword([]byte(userDB.password), []byte(FormUsrnm.password))
+		if errCompr != nil {
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
 
-		cookiesUsrnm := &http.Cookie{
-			Name:     "_sess_usrnm",
-			Value:    dataFormUsr.username,
+		//genrate with bycrypt the username and place on value cookie
+		passRand, err := bcrypt.GenerateFromPassword([]byte(FormUsrnm.password), bcrypt.MinCost)
+		if err != nil {
+			http.Redirect(w, r, "/", http.StatusInternalServerError)
+			return
+		}
+		//username and pasword are valid then make a session ID
+		c := &http.Cookie{
+			Name:     "_sessID",
+			Value:    string(passRand),
 			HttpOnly: true,
 			Path:     "/",
 			Expires:  time.Now().Add(time.Hour * 1), //1 year
 		}
+		http.SetCookie(w, c)
 
-		cookiespwd := &http.Cookie{
-			Name:     "_sess_pwd",
-			Value:    dataFormUsr.password,
-			Path:     "/",
-			HttpOnly: true,
-			Expires:  time.Now().Add(time.Hour * 1), //1 year
-		}
-
-		http.SetCookie(w, cookiesUsrnm)
-		http.SetCookie(w, cookiespwd)
-
+		//if you use database save cookiesUsrnm & cookiespwd store to database
 		tpl.ExecuteTemplate(w, "dashboard.html", nil)
 	}
+	//end of checkpoint POST
 }
+
+//end of dashboard func
 
 func logout(w http.ResponseWriter, r *http.Request) {
-	//cookiesValid(w, r, "_sess_usrnm")
-	cookieUsrnm, err := r.Cookie("_sess_usrnm")
+	//check session _uid
+	c1, err := r.Cookie("_uid")
 	if err != nil {
 		http.Redirect(w, r, "/", 303) //http.StatusSeeOther
 		return
 	}
 
-	//cookiesValid(w, r, "_sess_usrnm")
-	cookiePwd, err := r.Cookie("_sess_pwd")
+	//check session _sessID
+	c2, err := r.Cookie("_sessID")
 	if err != nil {
 		http.Redirect(w, r, "/", 303) //http.StatusSeeOther
 		return
 	}
 
-	//cookieUsrnm, _ = r.Cookie("_sess_usrnm")
-	//cookiePwd, _ = r.Cookie("_sess_pwd")
-	cookieUsrnm.MaxAge = -1
-	cookiePwd.MaxAge = -1
-	http.SetCookie(w, cookieUsrnm)
-	http.SetCookie(w, cookiePwd)
-	http.Redirect(w, r, "/", http.StatusSeeOther) //http.StatusSeeOther
+	//kill all cookies
+	c1.MaxAge = -1
+	c2.MaxAge = -1
+	http.SetCookie(w, c1)
+	http.SetCookie(w, c2)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 	return
-
 }
 
-func cookiesValid(w http.ResponseWriter, r *http.Request, cookieName string) {
-	_, err := r.Cookie(cookieName)
-	if err != nil {
-		http.Redirect(w, r, "/", 303) //http.StatusSeeOther
-		return
-	}
-}
-
-// I store username on value of first cookie
-// and store password on value of second cookie
+//end of logout func
