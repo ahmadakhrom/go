@@ -19,7 +19,7 @@ func GetCookie(w http.ResponseWriter, r *http.Request, cookie string) user.Users
 			Name:     "_uid",
 			Value:    d.String(),
 			HttpOnly: true,
-			Expires:  time.Now().Add(time.Hour * 24 * 365), //1 year
+			Expires:  time.Now().Add(time.Hour * 1), //1 year
 		}
 		http.SetCookie(w, c)
 		return u
@@ -37,6 +37,7 @@ func GetSession(r *http.Request, cookie string) error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 	//check value cookie whats that is username already on DB,
 	//if ok, if user on index position direct to dashboard, if on certain page direct to there page

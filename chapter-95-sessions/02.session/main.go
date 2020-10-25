@@ -54,6 +54,7 @@ func foo(w http.ResponseWriter, r *http.Request) {
 	//get user
 	var dataUser client
 	username, status := DBsess[c.Value] // res contained status true or false  //xxxxxxxx
+	fmt.Println(username, status)
 	if status == true {
 		dataUser = DBuser[username] //zzzzzz
 	}
@@ -70,11 +71,11 @@ func foo(w http.ResponseWriter, r *http.Request) {
 			fForm,
 			lForm,
 		}
-		DBsess[c.Value] = uForm  //map[xxxxxxxx-xxxxx-xxxxx-xxxxx-xxxxxxxxxxxxx]
+		DBsess[c.Value] = uForm  //map[xxxxxxxx-xxxxx-xxxxx-xxxxx-xxxxxxxxxxxxx: username]
 		DBuser[uForm] = dataUser //map:{username: username firstname lastname}
 	}
-	fmt.Println("line 71 --- DBsess is :", DBsess)
-	fmt.Println("line 72 --- DBuser is :", DBuser)
+	fmt.Println("line 73 --- DBsess is :", DBsess)
+	fmt.Println("line 74 --- DBuser is :", DBuser)
 	tpl.ExecuteTemplate(w, "index.html", dataUser)
 }
 
@@ -88,6 +89,8 @@ func bar(w http.ResponseWriter, r *http.Request) {
 
 	username, status := DBsess[c.Value] //status contained status true or false
 	if status != true {
+		fmt.Println("usname line 89", username)
+		fmt.Println("status line 89", status)
 		http.Redirect(w, r, "/", 303) //http.StatusSeeOther
 		return
 	}

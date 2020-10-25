@@ -1,4 +1,4 @@
-## Sessions
+# Sessions
 
 This is how we create state:
 
@@ -8,7 +8,7 @@ On our server, we will associate each user with a unique ID.
 
 This will allow us to identify every user visiting our website.
 
-# Security
+## Security
 
 There are two factors which contribute to the security of a session created using a cookie and a unique ID:
 

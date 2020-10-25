@@ -1,23 +1,16 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"text/template"
 	"time"
 
 	"chapter-95-sessions/03.login-with-auth-and-sessions/modul"
+	"chapter-95-sessions/03.login-with-auth-and-sessions/user"
 
-	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
-
-type users struct {
-	username string
-	password string
-}
-
-var detailCookie = map[string]string{}
-var detailUser = map[string]users{}
 
 var tpl *template.Template
 
@@ -35,72 +28,127 @@ func main() {
 
 //func for directing to index page
 func index(w http.ResponseWriter, r *http.Request) {
-	//checkpoint cookie name and password
-	u := modul.GetCookie(w, r, "_uid")
+	//checkpoint cookies
+	//check _uid cookie
+	modul.GetCookie(w, r, "_uid")
 
-	//u := (w, r, "_uid")
-	//validation logged, direct to dashboard
-	//if enable the database, check value was encrypted and compare it.
-	tpl.ExecuteTemplate(w, "index.html", u)
+	//check if there is no "_sessID" cookie
+	c, err := r.Cookie("_sessID")
+	if err != nil {
+		tpl.ExecuteTemplate(w, "index.html", nil)
+		return
+	}
+
+	_, true := user.DetailCookie[c.Value]
+	if !true {
+		fmt.Println("no value on x line 51", true)
+	}
+
+	i, err := r.Cookie("_role")
+	if err != nil {
+		tpl.ExecuteTemplate(w, "index.html", i)
+		fmt.Println("hold up")
+		return
+	}
+
+	//role checker
+	var data user.M
+	data = user.M{
+		"sessID": c.Name, "sessIdVal": c.Value, "role": i.Value,
+	}
+	switch i.Value {
+	case "1":
+		tpl.ExecuteTemplate(w, "dashboard.html", data)
+		return
+	case "2":
+		fmt.Fprintln(w, "your entered admin page")
+		return
+	case "3":
+		fmt.Fprintln(w, "your entered client page")
+		return
+	default:
+		fmt.Fprintln(w, "forbidden to enter any page")
+		return
+	}
+
+	//if enable the database, check value are encrypted and compare it. but it can be increase latency
+	//how solve it? use a jwt
+	//set uri to "domain/dashboard"
+
+	//http.Redirect(w, r, "/dasboard", http.StatusOK)
+	//tpl.ExecuteTemplate(w, "dashboard.html", data)
 }
 
 func dashboard(w http.ResponseWriter, r *http.Request) {
+	//example data user
+	userDB := user.Users{
+		Username: "andy",
+		Password: "$2a$04$GAgZBIywKpmH0jg7QTBsReALSk5C2au0PZj8p7mPqS3nsLtEogj8y",
+		Role:     "1",
+	}
+
 	//checkpoint GET
 	if r.Method == http.MethodGet {
-		//check sessoin _uid if nothing make it
-		c, err := r.Cookie("_uid")
+		//check cookie "_uid" if nothing make it
+		modul.GetCookie(w, r, "_uid")
+
+		_, err := r.Cookie("_sessID")
 		if err != nil {
-			d := uuid.New()
-			c = &http.Cookie{
-				Name:     "_uid",
-				Value:    d.String(),
-				HttpOnly: true,
-				Expires:  time.Now().Add(time.Hour * 24 * 365), //1 year
-			}
-			http.SetCookie(w, c)
+			http.Redirect(w, r, "/", http.StatusBadRequest)
+			return
 		}
 
-		_, err = r.Cookie("_sessID")
+		i, err := r.Cookie("_role")
 		if err != nil {
-			http.Redirect(w, r, "/", http.StatusSeeOther)
+			http.Redirect(w, r, "/", http.StatusBadRequest)
+			return
+		}
+
+		//role checker
+		switch i.Value {
+		case "1":
+			tpl.ExecuteTemplate(w, "dashboard.html", nil)
+			return
+		case "2":
+			fmt.Fprintln(w, "your entered admin page")
+			return
+		case "3":
+			fmt.Fprintln(w, "your entered client page")
+			return
+		default:
+			fmt.Fprintln(w, "forbidden to enter any page")
 			return
 		}
 
 		//decrypt value cookie v and check result of decrypted with username on DB
 		//check value cookie username are registered on DB or no
-		tpl.ExecuteTemplate(w, "dashboard.html", nil)
+		//tpl.ExecuteTemplate(w, "dashboard.html", nil)
 	}
 	//end of checkpoint GET
 
 	//checkpoint POST
-	//example data user
-	userDB := users{"andy", "$2a$04$GAgZBIywKpmH0jg7QTBsReALSk5C2au0PZj8p7mPqS3nsLtEogj8y"}
-
 	if r.Method == http.MethodPost {
 		usrnmForm := r.FormValue("username")
 		pwdForm := r.FormValue("password")
+		role := r.FormValue("role")
 
 		//validating username and password
 		//if account valid save data to dataFormUsr
-		FormUsrnm := users{
-			usrnmForm,
-			pwdForm,
+		FormUsrnm := user.Users{
+			Username: usrnmForm,
+			Password: pwdForm,
+			Role:     role,
 		}
 
 		//matching username and password on db
-		if usrnmForm != userDB.username {
-			http.Redirect(w, r, "/", http.StatusSeeOther)
-			return
-		}
-
-		errCompr := bcrypt.CompareHashAndPassword([]byte(userDB.password), []byte(FormUsrnm.password))
+		errCompr := bcrypt.CompareHashAndPassword([]byte(userDB.Password), []byte(FormUsrnm.Password))
 		if errCompr != nil {
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
 
-		//genrate with bycrypt the username and place on value cookie
-		passRand, err := bcrypt.GenerateFromPassword([]byte(FormUsrnm.password), bcrypt.MinCost)
+		//generate with bycrypt the username and place on value cookie
+		passRand, err := bcrypt.GenerateFromPassword([]byte(FormUsrnm.Password), bcrypt.MinCost)
 		if err != nil {
 			http.Redirect(w, r, "/", http.StatusInternalServerError)
 			return
@@ -114,6 +162,17 @@ func dashboard(w http.ResponseWriter, r *http.Request) {
 			Expires:  time.Now().Add(time.Hour * 1), //1 year
 		}
 		http.SetCookie(w, c)
+		user.DetailCookie[c.Value] = c.Value
+
+		//set cookie for role user
+		d := &http.Cookie{
+			Name:     "_role",
+			Value:    role,
+			HttpOnly: true,
+			Path:     "/",
+			Expires:  time.Now().Add(time.Hour * 1), //1 year
+		}
+		http.SetCookie(w, d)
 
 		//if you use database save cookiesUsrnm & cookiespwd store to database
 		tpl.ExecuteTemplate(w, "dashboard.html", nil)
@@ -124,14 +183,14 @@ func dashboard(w http.ResponseWriter, r *http.Request) {
 //end of dashboard func
 
 func logout(w http.ResponseWriter, r *http.Request) {
-	//check session _uid
+	//check cookie _uid
 	c1, err := r.Cookie("_uid")
 	if err != nil {
 		http.Redirect(w, r, "/", 303) //http.StatusSeeOther
 		return
 	}
 
-	//check session _sessID
+	//check cookie _sessID
 	c2, err := r.Cookie("_sessID")
 	if err != nil {
 		http.Redirect(w, r, "/", 303) //http.StatusSeeOther
@@ -141,10 +200,10 @@ func logout(w http.ResponseWriter, r *http.Request) {
 	//kill all cookies
 	c1.MaxAge = -1
 	c2.MaxAge = -1
+
 	http.SetCookie(w, c1)
 	http.SetCookie(w, c2)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 	return
+	//end of logout func
 }
-
-//end of logout func
