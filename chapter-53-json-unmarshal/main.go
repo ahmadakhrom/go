@@ -27,7 +27,7 @@ func main() {
  ]`
 
 	//var respStudent []student
-	respStudent :=  []student{}
+	respStudent := []student{}
 	err := json.Unmarshal([]byte(resp), &respStudent)
 
 	if err != nil {
@@ -44,9 +44,8 @@ func main() {
 		ID = val.ID
 		Name = val.Name
 		Age = val.Age
-		 fmt.Println("\n------ID","Age","Name")
-		 fmt.Println(val.ID, val.Age, val.Name)
-		 fmt.print
+		fmt.Println("\n------ID", "Age", "Name")
+		fmt.Println(val.ID, val.Age, val.Name)
 
 	}
 	fmt.Println("\nID\tName\t\tAge\n", ID, "\t", Name, "\t", Age) //---ID      Name            Age

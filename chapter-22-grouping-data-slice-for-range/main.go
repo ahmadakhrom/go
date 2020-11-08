@@ -8,8 +8,6 @@ func main() {
 	x := []int{1, 9, 12, 99, 3}
 	fmt.Println(x)
 
-	fmt.Println("\n")
-
 	//index position values on var x
 	fmt.Println(x[0])
 	fmt.Println(x[1])

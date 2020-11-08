@@ -8,7 +8,7 @@ type Users struct {
 }
 
 //DetailCookie variable
-var DetailCookie = map[string]string{}
+var Cookie = map[string]string{}
 
 //M map string
 type M = map[string]interface{}

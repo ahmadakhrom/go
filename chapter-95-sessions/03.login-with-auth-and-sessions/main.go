@@ -39,7 +39,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, true := user.DetailCookie[c.Value]
+	_, true := user.Cookie[c.Value]
 	if !true {
 		fmt.Println("no value on x line 51", true)
 	}
@@ -94,13 +94,13 @@ func dashboard(w http.ResponseWriter, r *http.Request) {
 
 		_, err := r.Cookie("_sessID")
 		if err != nil {
-			http.Redirect(w, r, "/", http.StatusBadRequest)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
 
 		i, err := r.Cookie("_role")
 		if err != nil {
-			http.Redirect(w, r, "/", http.StatusBadRequest)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
 
@@ -162,7 +162,7 @@ func dashboard(w http.ResponseWriter, r *http.Request) {
 			Expires:  time.Now().Add(time.Hour * 1), //1 year
 		}
 		http.SetCookie(w, c)
-		user.DetailCookie[c.Value] = c.Value
+		user.Cookie[c.Value] = c.Value
 
 		//set cookie for role user
 		d := &http.Cookie{
@@ -197,12 +197,24 @@ func logout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//check cookie _role
+	c3, err := r.Cookie("_role")
+	if err != nil {
+		http.Redirect(w, r, "/", 303) //http.StatusSeeOther
+		return
+	}
+
+	//delete data on var DetailCookie
+	delete(user.Cookie, c2.Value)
+
 	//kill all cookies
 	c1.MaxAge = -1
 	c2.MaxAge = -1
+	c3.MaxAge = -1
 
 	http.SetCookie(w, c1)
 	http.SetCookie(w, c2)
+	http.SetCookie(w, c3)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 	return
 	//end of logout func

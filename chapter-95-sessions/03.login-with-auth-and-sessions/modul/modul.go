@@ -25,7 +25,7 @@ func GetCookie(w http.ResponseWriter, r *http.Request, cookie string) user.Users
 		return u
 	}
 
-	if val, status := user.DetailCookie[c.Value]; status == true {
+	if val, status := user.Cookie[c.Value]; status == true {
 		u = user.DetailUser[val]
 	}
 	return u
