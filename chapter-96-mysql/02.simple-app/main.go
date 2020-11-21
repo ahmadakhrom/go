@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
@@ -14,6 +15,14 @@ import (
 
 var db *sql.DB
 var err error
+var tpl *template.Template
+
+//M type
+type M map[string]string
+
+func init() {
+	tpl = template.Must(template.ParseGlob("templates/*.html"))
+}
 
 func main() {
 	//this example from Mr. todd McLeod while connecting the app with AWS
@@ -29,8 +38,10 @@ func main() {
 	http.HandleFunc("/read", read)
 	http.HandleFunc("/find", findUser)
 	http.HandleFunc("/insert", insert)
+	http.HandleFunc("/update-action", updateAction)
 	http.HandleFunc("/update", update)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
+
 	err = http.ListenAndServe(":8080", nil)
 	modul.CheckErr(err)
 }
@@ -132,7 +143,7 @@ func insert(w http.ResponseWriter, r *http.Request) {
 		res, err := stmt.Exec(userid, username, password, logid)
 		modul.CheckErr(err)
 
-		_, err := res.RowsAffected()
+		_, err = res.RowsAffected()
 		modul.CheckErr(err)
 
 		fmt.Fprint(w, "data successfully recorded!")
@@ -154,8 +165,67 @@ func insert(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func updateAction(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+		http.Redirect(w, r, "/", http.StatusOK)
+	case http.MethodPost:
+		a := r.FormValue("userid")
+		b := r.FormValue("username")
+		c := r.FormValue("password")
+		//d := r.FormValue("logid")
+
+		//save update
+		stmt, err := db.Prepare("UPDATE users SET username = ?, password= ? WHERE userid = ?")
+		modul.CheckErr(err)
+		defer stmt.Close()
+
+		r, err := stmt.Exec(b, c, a)
+		modul.CheckErr(err)
+
+		_, err := r.RowsAffected()
+		modul.CheckErr(err)
+
+		fmt.Fprint(w, "record updated")
+
+	default:
+		http.Redirect(w, r, "/", http.StatusOK)
+	}
+}
+
 func update(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html;charset=utf8")
-	io.WriteString(w, `
+	switch r.Method {
+	case http.MethodGet:
+		w.Header().Set("Content-Type", "text/html;charset=utf8")
+		io.WriteString(w, `
+	<form action="/update" method="POST" >
+	userid<input type="text" name="userid"> <br>
+		<input type="submit"> <br>
+	</form>	
 		`)
+	case http.MethodPost:
+		//make variable to store the result of scanning
+		var userid, username, password, logid string
+
+		//select record
+		a := r.FormValue("userid")
+		err := db.QueryRow("SELECT * FROM users where userid = ?", a).Scan(&userid, &username, &password, &logid)
+		modul.CheckErr(err)
+
+		//call struct user
+		dataRow := modul.Users{}
+
+		dataRow.UserID = userid
+		dataRow.Username = username
+		dataRow.Password = password
+		dataRow.LogID = logid
+
+		data := M{
+			"UserID":   userid,
+			"Username": username,
+			"Password": password,
+			"LogID":    logid,
+		}
+		tpl.ExecuteTemplate(w, "edit.html", data)
+	}
 }
